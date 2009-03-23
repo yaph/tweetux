@@ -7,6 +7,7 @@ import tweets
 class MainPage(webapp.RequestHandler):
   def get(self):
     self.response.headers['Content-Type'] = 'text/html'
+    string = 'asdpasqdsaDdwe   -.f, '
     results = tweets.get_tweets()
     if results:
       html = template.render('index.html', dict(results = results))
