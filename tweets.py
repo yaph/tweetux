@@ -21,7 +21,7 @@ def get_tweets():
     try:
       result = urlfetch.fetch(request_url)
       if result.status_code == 200:
-        results = (simplejson.loads(result.content))['results']
+        results = simplejson.loads(result.content)['results']
         # try to cache for 60 seconds
         memcache.set(cache_id, results, 60)
         return results
