@@ -1,0 +1,36 @@
+* {
+  margin:0;
+  padding:0;
+}
+body {
+  font-size:100%;
+}
+h1 {
+  margin:.5em 0;
+}
+#wrapper {
+  width:960px;
+  margin: 0 auto;
+}
+.tweet {
+  border-bottom: 1px solid #666;
+  padding:.5em 0;
+  clear:both;
+}
+.twitter-profile {
+  float:left;
+  width:48px;
+  height:48px;
+}
+.twitter-status {
+  padding:0 0 0 58px;
+}
+.twitter-actions {
+  text-align:right;
+  font-size:.9em;
+  clear:both;
+}
+.twitter-actions li {
+  display:inline;
+  margin-left:20px;
+}

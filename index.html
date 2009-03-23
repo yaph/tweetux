@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Tweetux - Linux Tweets</title>
+<link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+</head>
+<body>
+<div id="wrapper">
+  <h1>Tweetux - Linux Tweets</h1>
+
+  {%  for res in results  %}
+  <div class="tweet">
+    <img class="twitter-profile" src="{{res.profile_image_url}}" alt="{{res.from_user}}" />
+    <p class="twitter-status">{{res.text|striptags|urlize}}</p>
+    <ul class="twitter-actions">
+      <li>Posted <a href="http://twitter.com/{{res.from_user}}/{{res.id}}">{{res.created_at}}</a></li>
+      <li>Follow <a href="http://twitter.com/{{res.from_user}}">{{res.from_user}}</a></li>
+      <li><a href="http://twitter.com/home?status=@{{res.from_user}}&in_reply_to_status_id={{res.id}}&in_reply_to?{{res.from_user}}">Reply</a></li>
+    </ul>
+  </div>
+
+{%  endfor  %}
+
+</div>
+</body>
+</html>
