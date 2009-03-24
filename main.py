@@ -2,17 +2,16 @@ import wsgiref.handlers
 
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-import tweets
+import twitter
 
 class MainPage(webapp.RequestHandler):
   def get(self):
     self.response.headers['Content-Type'] = 'text/html'
-    string = 'asdpasqdsaDdwe   -.f, '
-    results = tweets.get_tweets()
-    if results:
-      html = template.render('index.html', dict(results = results))
+    result = twitter.get_tweets()
+    if result:
+      html = template.render('templates/index.html', dict(result = result))
     else:
-      html = template.render('error.html', {})
+      html = template.render('templates/error.html', {})
     self.response.out.write(html)
 
 def main():

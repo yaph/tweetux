@@ -1,11 +1,13 @@
 * {
   margin:0;
   padding:0;
+  font-family:Arial, sans-serif;
 }
 body {
-  font-size:100%;
+  font-size:90%;
 }
 h1 {
+  font-size:1.4em;
   margin:.5em 0;
 }
 a img {
@@ -15,12 +17,36 @@ a img {
   width:960px;
   margin: 0 auto;
 }
-.tweet {
-  border-bottom: 1px solid #666;
-  padding:.5em 0;
+#content {
+  width:660px;
+  position:relative;
+}
+#sidebar {
+  width:300px;
+}
+#pager {
+  width:100%;
   clear:both;
 }
-.twitter-profile {
+#footer {
+  width:100%;
+  clear:both;
+}
+.column {
+  float:left;
+}
+.tweet-wrapper {
+  padding:5px 0;
+  width:100%;
+  height:55px;
+  clear:both;
+  border-bottom: 1px solid #666;
+}
+.tweet {
+  float:left;
+  width:600px;
+}
+.twitter-profile-image {
   float:left;
   width:48px;
   height:48px;
@@ -30,8 +56,10 @@ a img {
 }
 .twitter-actions {
   text-align:right;
-  font-size:.9em;
-  clear:both;
+  font-size:.85em;
+  float:left;
+  width:60px;
+  overflow:hidden;
 }
 .twitter-actions li {
   display:inline;
