@@ -4,7 +4,7 @@
   font-family:Arial, sans-serif;
 }
 body {
-  font-size:90%;
+  font-size:85%;
 }
 h1 {
   font-size:1.4em;
@@ -18,11 +18,11 @@ a img {
   margin: 0 auto;
 }
 #content {
-  width:660px;
+  width:610px;
   position:relative;
 }
 #sidebar {
-  width:300px;
+  width:350px;
 }
 #pager {
   width:100%;
@@ -44,7 +44,7 @@ a img {
 }
 .tweet {
   float:left;
-  width:600px;
+  width:550px;
 }
 .twitter-profile-image {
   float:left;

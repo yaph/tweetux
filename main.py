@@ -30,7 +30,7 @@ class JsPage(webapp.RequestHandler):
   def get(self):
     self.response.headers['Content-Type'] = 'text/javascript'
     tweets = get_data(self.request)
-    if result:
+    if tweets:
       html = template.render('templates/tweets.html', dict(tweets = tweets))
       self.response.out.write(html)
 
