@@ -1,26 +1,26 @@
-{%  for r in result.results  %}
+{%  for t in tweets.results  %}
 <div class="tweet-wrapper">
-<div class="tweet">
-  <a href="http://twitter.com/{{r.from_user}}">
-    <img class="twitter-profile-image" src="{{r.profile_image_url}}" alt="{{r.from_user}}" title="Follow {{r.from_user}}" />
+  <div class="tweet">
+  <a href="/profile/{{t.from_user}}">
+    <img class="twitter-profile-image" src="{{t.profile_image_url}}" alt="{{t.from_user}}" title="Follow {{t.from_user}}" />
   </a>
-  <p class="twitter-status"><a href="http://twitter.com/{{r.from_user}}" title="Follow {{r.from_user}}">{{r.from_user}}</a>: {{r.text|striptags|urlize}}</p>
+  <p class="twitter-status"><a href="/profile/{{t.from_user}}" title="Follow {{t.from_user}}">{{t.from_user}}</a>: {{t.text|striptags|urlize}}</p>
 </div>
 <div class="twitter-actions">
   <ul>
-    <li><a href="http://twitter.com/{{r.from_user}}/status/{{r.id}}" title="Status updated on {{r.created_at}}">Tweet</a></li>
-    <li><a href="http://twitter.com/home?status=@{{r.from_user}}&amp;in_reply_to_status_id={{r.id}}&amp;in_reply_to={{r.from_user}}" title="Reply to status update">Reply</a></li>
+    <li><a href="http://twittet.com/{{t.from_user}}/status/{{t.id}}" title="Status updated on {{t.created_at}}">Tweet</a></li>
+    <li><a href="http://twittet.com/home?status=@{{t.from_user}}&amp;in_reply_to_status_id={{t.id}}&amp;in_reply_to={{t.from_user}}" title="Reply to status update">Reply</a></li>
   </ul>
 </div>
 </div>
 {%  endfor  %}
 
 <div id="pager">
-{%  if result.previous_page  %}
-  <a href="/tweets{{result.previous_page}}" onclick="get_tweets(this);return false;">previous</a>
+{%  if tweets.previous_page  %}
+  <a href="/tweets{{tweets.previous_page}}" onclick="get_tweets(this);return false;">previous</a>
 {%  endif  %}
 
-{%  if result.next_page  %}
-  <a href="/tweets{{result.next_page}}" onclick="get_tweets(this);return false;">next</a>
+{%  if tweets.next_page  %}
+  <a href="/tweets{{tweets.next_page}}" onclick="get_tweets(this);return false;">next</a>
 {%  endif  %}
 </div>
