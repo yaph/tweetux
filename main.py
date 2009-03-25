@@ -20,10 +20,11 @@ class ProfilePage(webapp.RequestHandler):
     screen_name = self.request.path.split('/')[-1]
     profile = twitter.get_profile(screen_name)
     tweets = twitter.user_tweets(screen_name)
-    if profile and tweets:
-      html = template.render('templates/profile.html', dict(profile = profile, tweets = tweets))
-    else:
-      html = template.render('templates/error.html', {})
+    if not profile:
+      profile = {}
+    if not tweets:
+      tweets = {}
+    html = template.render('templates/profile.html', dict(profile = profile, tweets = tweets))
     self.response.out.write(html)
 
 class JsPage(webapp.RequestHandler):

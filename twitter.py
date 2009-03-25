@@ -7,21 +7,21 @@ def search_tweets(**request_params):
   url = u'http://search.twitter.com/search.json?%s'
   default_params = { 'q': '#linux', 'rpp': 10 }
   default_params.update(request_params)
-  return api_request(url, True, **default_params)
+  return api_request(url, 300, **default_params)
 
 def user_tweets(screen_name):
   url = u'http://twitter.com/statuses/user_timeline.json?%s'
   params = {'screen_name': screen_name}
-  return api_request(url, True, **params)
+  return api_request(url, 600, **params)
   
 def get_profile(screen_name):
   url = u'http://twitter.com/users/show.json?%s'
   params = {'screen_name': screen_name}
-  return api_request(url, True, **params)
+  return api_request(url, 86400, **params)
 
-def api_request(url, cache, **params):
+def api_request(url, cache_time, **params):
   request_url = url % urllib.urlencode(params)
-  if cache:
+  if cache_time != 0:
     # try to load from cache
     cache_id = request_url.encode('base64')
     result = memcache.get(cache_id)
@@ -32,9 +32,9 @@ def api_request(url, cache, **params):
     result = urlfetch.fetch(request_url)
     if result.status_code == 200:
       result = simplejson.loads(result.content)
-      if cache:
+      if cache_time != 0:
         # cache for 5 minutes
-        memcache.set(cache_id, result, 300)
+        memcache.set(cache_id, result, cache_time)
       return result
   except:
     return False
