@@ -3,6 +3,7 @@ import wsgiref.handlers
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 import twitter
+import re
 
 class MainPage(webapp.RequestHandler):
   def get(self):
@@ -19,12 +20,13 @@ class ProfilePage(webapp.RequestHandler):
     self.response.headers['Content-Type'] = 'text/html'
     screen_name = self.request.path.split('/')[-1]
     profile = twitter.get_profile(screen_name)
-    tweets = twitter.user_tweets(screen_name)
+    params = { 'q': '#linux', 'from': screen_name }
+    tweets = twitter.search_tweets(**params)
     if not profile:
       profile = {}
     if not tweets:
       tweets = {}
-    html = template.render('templates/profile.html', dict(profile = profile, tweets = tweets))
+    html = template.render('templates/profile.html', dict(profile = profile, tweets = tweets, screen_name = screen_name))
     self.response.out.write(html)
 
 class JsPage(webapp.RequestHandler):
@@ -46,7 +48,8 @@ def get_data(request):
   if q is '':
     q = '#linux'
   else:
-    check = q.strip('#')
+    # replace chars that can occur in screen names and searches
+    check = re.sub(r'[_#:\s\+\-]', '', q)
     if not check.isalnum():
       return False
 
