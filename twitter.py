@@ -5,7 +5,7 @@ import urllib
 
 def search_tweets(**request_params):
   url = u'http://search.twitter.com/search.json?%s'
-  default_params = { 'q': '#linux', 'rpp': 10 }
+  default_params = { 'q': 'linux', 'rpp': 10 }
   default_params.update(request_params)
   return api_request(url, 300, **default_params)
 

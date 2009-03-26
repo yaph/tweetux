@@ -20,7 +20,7 @@ class ProfilePage(webapp.RequestHandler):
     self.response.headers['Content-Type'] = 'text/html'
     screen_name = self.request.path.split('/')[-1]
     profile = twitter.get_profile(screen_name)
-    params = { 'q': '#linux', 'from': screen_name }
+    params = { 'q': 'linux', 'from': screen_name }
     tweets = twitter.search_tweets(**params)
     if not profile:
       profile = {}
@@ -46,7 +46,7 @@ def get_data(request):
   
   q = request.get('q')
   if q is '':
-    q = '#linux'
+    q = 'linux'
   else:
     # replace chars that can occur in screen names and searches
     check = re.sub(r'[_#:\s\+\-]', '', q)
