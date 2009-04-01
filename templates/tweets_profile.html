@@ -1,11 +1,15 @@
 {%  for t in tweets.results  %}
 <div class="tweet-wrapper">
-  <div class="tweet">
-  <p class="twitter-status">{{t.text|striptags|urlize}}</p>
+<div class="tweet">
+<p class="twitter-status">{{t.text|striptags|urlize}}</p>
+<p><a href="http://twitter.com/{{t.from_user}}/status/{{t.id}}" title="Status updated on {{t.created_at}}">{{t.created_at}}</a>&nbsp;
+{% if t.to_user %}
+<a href="/profile/{{t.to_user}}">in reply to {{t.to_user}}</a>
+{% endif %}
+</p>
 </div>
 <div class="twitter-actions">
   <ul>
-    <li><a href="http://twitter.com/{{t.from_user}}/status/{{t.id}}" title="Status updated on {{t.created_at}}">Tweet</a></li>
     <li><a href="http://twitter.com/home?status=@{{t.from_user}}&amp;in_reply_to_status_id={{t.id}}&amp;in_reply_to={{t.from_user}}" title="Reply to status update">Reply</a></li>
   </ul>
 </div>

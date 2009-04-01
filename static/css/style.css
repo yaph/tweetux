@@ -10,6 +10,9 @@ h1 {
   font-size:1.4em;
   margin:.5em 0;
 }
+ul {
+  list-style:none;
+}
 a img {
   border:none;
 }
@@ -22,7 +25,8 @@ a img {
   position:relative;
 }
 #sidebar {
-  width:350px;
+  width:340px;
+  margin-left:10px;
 }
 #pager {
   width:100%;
@@ -62,4 +66,9 @@ a img {
 .twitter-actions li {
   display:inline;
   margin-left:20px;
+}
+
+/* Google Maps */
+#mapsearch {
+width:340px;
 }

@@ -9,3 +9,43 @@
 {% include 'tweets_profile.html' %}
 
 {% endblock %}
+
+{% if profile.screen_name %}
+  {% block sidebar %}
+  <h3 id="screen_name">{{profile.screen_name}}</h3>
+  <div><img src="{{profile.profile_image_url}}" alt="{{profile.screen_name}}" /></div>
+  
+  <ul>
+  <li>{{profile.name}}</li>
+  <li>Followers: {{profile.followers_count}}</li>
+  <li>Follows: {{profile.friends_count}}</li>
+  <li>Updates: {{profile.statuses_count}}</li>
+  <li>{{profile.description}}</li>
+  <li>{{profile.created_at}}</li>
+  </ul>
+  
+  {% if profile.location %}
+  <h3>Location</h3>
+  <div id="user_location">{{profile.location}}</div>
+  <div id="mapsearch"></div>
+  <style type="text/css"> @import url("http://www.google.com/uds/css/gsearch.css");</style>
+  <style type="text/css">@import url("http://www.google.com/uds/solutions/mapsearch/gsmapsearch.css");</style>
+  <style type="text/css">.gsmsc-mapDiv {height:275px;} .gsmsc-idleMapDiv {height:275px;}</style>
+
+  <script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAmrEfcOrtp2tfQZWrdKRqiRQp7DdV8JKi5WyjcsqQqdQ5KwogHBR04C3RxY7hQcBXDTIQBIyo-n335A" type="text/javascript"></script>
+  <script src="http://www.google.com/uds/api?file=uds.js&v=1.0&source=uds-msw&key=ABQIAAAAmrEfcOrtp2tfQZWrdKRqiRQp7DdV8JKi5WyjcsqQqdQ5KwogHBR04C3RxY7hQcBXDTIQBIyo-n335A" type="text/javascript"></script>
+  <script type="text/javascript">window._uds_msw_donotrepair = true;</script>
+  <script src="http://www.google.com/uds/solutions/mapsearch/gsmapsearch.js?mode=new"type="text/javascript"></script>
+  <script type="text/javascript" src="/static/js/gmap.js"></script>
+  {% endif %}
+  
+  {% if profile.url %}
+  <h3>Website</h3>
+  <div><a id="user_url" href="{{profile.url}}">{{profile.url}}</a></div>
+  <div id="user_feed"></div>
+  <script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAmrEfcOrtp2tfQZWrdKRqiRQp7DdV8JKi5WyjcsqQqdQ5KwogHBR04C3RxY7hQcBXDTIQBIyo-n335A"></script>
+  <script type="text/javascript" src="/static/js/gfeed.js"></script>
+  {% endif %}
+
+  {% endblock %}
+{% endif %}
