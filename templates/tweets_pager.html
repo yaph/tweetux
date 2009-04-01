@@ -1,0 +1,9 @@
+<div id="pager">
+{%  if tweets.previous_page  %}
+  <a href="/tweets{{tweets.previous_page}}" onclick="get_tweets(this);return false;">previous</a>
+{%  endif  %}
+  {{tweets.page}}  
+{%  if tweets.next_page  %}
+  <a href="/tweets{{tweets.next_page}}" onclick="get_tweets(this);return false;">next</a>
+{%  endif  %}
+</div>

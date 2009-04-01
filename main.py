@@ -34,7 +34,11 @@ class JsPage(webapp.RequestHandler):
     self.response.headers['Content-Type'] = 'text/javascript'
     tweets = get_data(self.request)
     if tweets:
-      html = template.render('templates/tweets.html', dict(tweets = tweets))
+      template_path = 'tweets.html'
+      if self.request.get('q').find('from:') != -1:
+        template_path = 'tweets_profile.html'
+      template_path = 'templates/' + template_path
+      html = template.render(template_path, dict(tweets = tweets))
       self.response.out.write(html)
 
 def get_data(request):

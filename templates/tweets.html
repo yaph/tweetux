@@ -5,22 +5,18 @@
     <img class="twitter-profile-image" src="{{t.profile_image_url}}" alt="{{t.from_user}}" title="Follow {{t.from_user}}" />
   </a>
   <p class="twitter-status"><a href="/profile/{{t.from_user}}" title="Follow {{t.from_user}}">{{t.from_user}}</a>: {{t.text|striptags|urlize}}</p>
+  <p><a href="http://twitter.com/{{t.from_user}}/status/{{t.id}}" title="Status updated on {{t.created_at}}">{{t.created_at}}</a> 
+  {% if t.to_user %}
+  <a href="/profile/{{t.to_user}}">in reply to {{t.to_user}}</a>
+  {% endif %}
+</p>
 </div>
 <div class="twitter-actions">
   <ul>
-    <li><a href="http://twitter.com/{{t.from_user}}/status/{{t.id}}" title="Status updated on {{t.created_at}}">Tweet</a></li>
     <li><a href="http://twitter.com/home?status=@{{t.from_user}}&amp;in_reply_to_status_id={{t.id}}&amp;in_reply_to={{t.from_user}}" title="Reply to status update">Reply</a></li>
   </ul>
 </div>
 </div>
 {%  endfor  %}
 
-<div id="pager">
-{%  if tweets.previous_page  %}
-  <a href="/tweets{{tweets.previous_page}}" onclick="get_tweets(this);return false;">previous</a>
-{%  endif  %}
-
-{%  if tweets.next_page  %}
-  <a href="/tweets{{tweets.next_page}}" onclick="get_tweets(this);return false;">next</a>
-{%  endif  %}
-</div>
+{% include 'tweets_pager.html' %}
