@@ -1,6 +1,7 @@
 from google.appengine.api import urlfetch
 from google.appengine.api import memcache
 from django.utils import simplejson
+import sys
 import urllib
 
 def search_tweets(**request_params):
@@ -36,6 +37,9 @@ def api_request(url, cache_time, **params):
         # cache for 5 minutes
         memcache.set(cache_id, result, cache_time)
       return result
+    elif result.status_code == 400:
+      print 'Limit exceeded'
+      sys.exit()
   except:
     return False
 

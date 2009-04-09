@@ -9,6 +9,9 @@ handlers:
   
 - url: /tweets
   script: main.py
+  
+- url: /oauth/twitter/(.*)
+  script: main.py
 
 - url: /profile/\w+
   script: main.py
