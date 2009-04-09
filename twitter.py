@@ -10,16 +10,6 @@ def search_tweets(**request_params):
   default_params.update(request_params)
   return api_request(url, 300, **default_params)
 
-def user_tweets(screen_name):
-  url = u'http://twitter.com/statuses/user_timeline.json?%s'
-  params = {'screen_name': screen_name}
-  return api_request(url, 600, **params)
-  
-def get_profile(screen_name):
-  url = u'http://twitter.com/users/show.json?%s'
-  params = {'screen_name': screen_name}
-  return api_request(url, 86400, **params)
-
 def api_request(url, cache_time, **params):
   request_url = url % urllib.urlencode(params)
   if cache_time != 0:

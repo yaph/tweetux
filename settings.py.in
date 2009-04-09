@@ -1,8 +1,5 @@
 # edit the settings and copy this file to settings.py
 # original code from http://github.com/ryanwi/twitteroauth/tree/master
-
-from datetime import timedelta
-
 OAUTH_APP_SETTINGS = {
   'consumer_key': '',
   'consumer_secret': '',
@@ -13,6 +10,3 @@ OAUTH_APP_SETTINGS = {
   'default_api_suffix': '.json',
   'oauth_callback': None,
 }
-
-CLEANUP_BATCH_SIZE = 100
-EXPIRATION_WINDOW = timedelta(seconds=60*60)

@@ -55,7 +55,7 @@ class BaseHandler(webapp.RequestHandler):
   def get_cookie(self, name):
     return self.request.cookies.get(name)
 
-  def set_cookie(self, name, value, path='/', expires="Fri, 31-Dec-2666 23:59:59 GMT"):
+  def set_cookie(self, name, value, path='/', expires="Fri, 28-Dec-2666 23:59:59 GMT"):
     self.response.headers.add_header(
       'Set-Cookie', '%s=%s; path=%s; expires=%s' %
       (name, value, path, expires))
@@ -180,12 +180,11 @@ class ProfilePage(BaseHandler):
       profile = memcache.get(cache_id)
 
       if not profile:
-        access_token = datamodel.OAuthAccessToken.get_by_key_name(key_name)
-        oauth_token = oauth.OAuthToken(access_token.oauth_token, access_token.oauth_token_secret)
-        client = oauth.OAuthClient(self, OAUTH_APP_SETTINGS, oauth_token)
-        params = {'screen_name': screen_name}
-
         try:
+          access_token = datamodel.OAuthAccessToken.get_by_key_name(key_name)
+          oauth_token = oauth.OAuthToken(access_token.oauth_token, access_token.oauth_token_secret)
+          client = oauth.OAuthClient(self, OAUTH_APP_SETTINGS, oauth_token)
+          params = {'screen_name': screen_name}
           profile = client.get('/users/show', **params)
           memcache.set(cache_id, profile, 86400)
         except:
@@ -231,7 +230,7 @@ def main():
     ('/oauth/twitter/(.*)', TwitterOAuthHandler),
     ('/profile/\w+', ProfilePage),
     ('/tweets', JsPage)],
-    debug=True
+    debug=False
   )
   wsgiref.handlers.CGIHandler().run(application)
 
