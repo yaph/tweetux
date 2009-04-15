@@ -13,6 +13,14 @@
 <h1><a href="/">{% block heading %}Tweetux - Linux Tweets{% endblock %}</a></h1>
   {% block subheading %}{% endblock %}
   <div id="content" class="column">
+    {% if is_user_logged_in %}
+    <div>
+    <form action="/status/update" method="post">
+      <textarea name="status" id="status" rows="2" cols="40"></textarea> <br />
+      <input type="submit" name="update" value="update" />
+    </form>
+    </div>
+    {% endif %}
     {% block content %}
     Main Content
     {% endblock %}

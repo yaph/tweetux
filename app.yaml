@@ -12,6 +12,9 @@ handlers:
   
 - url: /oauth/twitter/(.*)
   script: main.py
+  
+- url: /status/update
+  script: main.py
 
 - url: /profile/\w+
   script: main.py

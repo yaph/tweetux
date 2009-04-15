@@ -137,6 +137,18 @@ class TwitterOAuthHandler(BaseHandler):
 
     self.set_cookie('oauth', key_name)
     self.redirect('/')
+    
+class StatusUpdateHandler(BaseHandler):
+  def post(self):
+    status = cgi.escape(self.request.get('status'))
+    
+    key_name = self.get_cookie('oauth')
+    access_token = datamodel.OAuthAccessToken.get_by_key_name(key_name)
+    oauth_token = oauth.OAuthToken(access_token.oauth_token, access_token.oauth_token_secret)
+    client = oauth.OAuthClient(self, OAUTH_APP_SETTINGS, oauth_token)
+
+    status = client.post('/statuses/update', status=status)
+    self.redirect('/')
 
 class MainPage(BaseHandler):
   def get(self):
@@ -228,6 +240,7 @@ def main():
   application = webapp.WSGIApplication(
     [('/', MainPage),
     ('/oauth/twitter/(.*)', TwitterOAuthHandler),
+    ('/status/update', StatusUpdateHandler),
     ('/profile/\w+', ProfilePage),
     ('/tweets', JsPage)],
     debug=False

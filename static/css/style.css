@@ -48,7 +48,7 @@ a img {
 }
 .tweet {
   float:left;
-  width:550px;
+  width:560px;
 }
 .twitter-profile-image {
   float:left;
@@ -60,12 +60,17 @@ a img {
   text-align:right;
   font-size:.85em;
   float:left;
-  width:60px;
+  width:50px;
   overflow:hidden;
 }
 .twitter-actions li {
   display:inline;
   margin-left:20px;
+}
+
+/* status message form */
+#status {
+  width:600px;
 }
 
 /* Google Maps */
