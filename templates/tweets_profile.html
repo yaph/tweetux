@@ -10,7 +10,7 @@
 </div>
 <div class="twitter-actions">
   <ul>
-    <li><a href="http://twitter.com/home?status=@{{t.from_user}}&amp;in_reply_to_status_id={{t.id}}&amp;in_reply_to={{t.from_user}}" title="Reply to status update">Reply</a></li>
+    <li><a href="http://twitter.com/home?status=@{{t.from_user}}&amp;in_reply_to_status_id={{t.id}}&amp;in_reply_to={{t.from_user}}" title="Reply to status update" onclick="reply({{t.id}}, '{{t.from_user}}');return false;">Reply</a></li>
   </ul>
 </div>
 </div>
