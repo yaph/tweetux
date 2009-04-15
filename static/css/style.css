@@ -20,6 +20,7 @@ a img {
   width:960px;
   margin: 0 auto;
 }
+#status-form,
 #content {
   width:610px;
   position:relative;
