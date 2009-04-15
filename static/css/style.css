@@ -20,7 +20,7 @@ a img {
   width:960px;
   margin: 0 auto;
 }
-#status-form,
+#status-box,
 #content {
   width:610px;
   position:relative;
@@ -67,6 +67,10 @@ a img {
 }
 
 /* status message form */
+#status-box {
+  display:none;
+}
+
 #status {
   width:600px;
 }
