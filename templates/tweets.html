@@ -2,7 +2,7 @@
 <div class="tweet-wrapper">
 <div class="tweet">
 <a href="/profile/{{t.from_user}}">
-<img class="twitter-profile-image" src="{{t.profile_image_url}}" alt="{{t.from_user}}" title="Follow {{t.from_user}}" />
+<img class="twitter-profile-image" src="{{t.profile_image_url}}" alt="{{t.from_user}}" title="{{t.from_user}}'s Page" />
 </a>
 <p class="twitter-status">{{t.text|striptags|urlize}}</p>
 <p><a href="http://twitter.com/{{t.from_user}}/status/{{t.id}}" title="Status updated on {{t.created_at}}">{{t.created_at}}</a>&nbsp;
