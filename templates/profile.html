@@ -15,7 +15,7 @@
 {% if is_user_logged_in %}
 
   {% if profile.screen_name %}
-    <h3 id="screen_name">{{profile.screen_name}}</h3>
+    <h3 id="screen_name"><a href="http://twitter.com/{{profile.screen_name}}" title="Follow {{profile.screen_name}}">{{profile.screen_name}}</a></h3>
     <div><img src="{{profile.profile_image_url}}" alt="{{profile.screen_name}}" /></div>
 
     <ul>
