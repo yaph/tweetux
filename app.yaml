@@ -7,7 +7,10 @@ handlers:
 - url: /
   script: main.py
   
-- url: /tweets
+- url: /tweets/.*
+  script: main.py
+
+- url: /js/tweets
   script: main.py
   
 - url: /oauth/twitter/(.*)

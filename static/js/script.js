@@ -1,5 +1,8 @@
 $(function(){
-  if (top !== self) top.location.href = self.location.href;
+  $('#search-form').submit(function(){
+    document.location.href = $(this).attr('action')+encodeURIComponent($('#q').val());
+    return false;
+  });
   $('#status-form').submit(function(){
     var status_form = $('#status-form');
     status_form.css('display', 'none');

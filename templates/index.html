@@ -5,3 +5,23 @@
 {% include 'tweets.html' %}
 
 {% endblock %}
+
+{% block sidebar %}
+  <h3>Topics</h3>
+  <ul>
+  {% for t in topics %}
+    <li>
+    {% ifnotequal t topic %}
+    <a href="/tweets/{{t}}">{{t}}</a>
+    {% else %}
+    {{t}}
+    {% endifnotequal %}
+    </li>
+  {% endfor %}
+  </ul>
+  <h3>Search</h3>
+  <form id="search-form" name="search-form" action="/tweets/">
+    <input type="text" id="q" name="q" />
+    <input type="submit" value="search" />
+  </form>
+{% endblock %}

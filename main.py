@@ -4,6 +4,7 @@ import re
 import cgi
 import uuid
 import wsgiref.handlers
+import urllib
 
 from google.appengine.ext import webapp
 from google.appengine.api import memcache
@@ -78,7 +79,7 @@ class TwitterOAuthHandler(BaseHandler):
   '''Request Handler for all OAuth workflow when authenticating user'''
 
   def get(self, action=''):
-    self._client = oauth.OAuthClient(self, OAUTH_APP_SETTINGS)
+    self._client = oauth.OAuthClient(self, SETTINGS_OAUTH_TWITTER)
 
     if action == 'login':
       self.login()
@@ -118,7 +119,7 @@ class TwitterOAuthHandler(BaseHandler):
     raw_access_token = self._client.get_access_token(oauth_token)
 
     # get the screen_name
-    self._client = oauth.OAuthClient(self, OAUTH_APP_SETTINGS, raw_access_token)
+    self._client = oauth.OAuthClient(self, SETTINGS_OAUTH_TWITTER, raw_access_token)
     screen_name = self._client.get('/account/verify_credentials')['screen_name']
 
     # delete any old access tokens for this user
@@ -150,20 +151,28 @@ class StatusUpdateHandler(BaseHandler):
     key_name = self.get_cookie('oauth')
     access_token = datamodel.OAuthAccessToken.get_by_key_name(key_name)
     oauth_token = oauth.OAuthToken(access_token.oauth_token, access_token.oauth_token_secret)
-    client = oauth.OAuthClient(self, OAUTH_APP_SETTINGS, oauth_token)
+    client = oauth.OAuthClient(self, SETTINGS_OAUTH_TWITTER, oauth_token)
 
     status = client.post('/statuses/update', **params)
     self.redirect('/')
 
 class MainPage(BaseHandler):
-  def get(self):
+  def get(self, action=''):
+    
+    if action:
+      topic = urllib.unquote(action)
+    else:
+      topic = SETTINGS_TOPICS[0]
+      
     key_name = self.get_cookie('oauth')
     logged_in = self.is_logged_in(key_name)
 
-    tweets = get_data(self.request)
+    tweets = get_data(self.request, topic)
     values = {
       'is_user_logged_in':logged_in,
-      'tweets':tweets
+      'tweets':tweets,
+      'topics':SETTINGS_TOPICS,
+      'topic':topic
     }
     self.generate('text/html', 'index.html', **values)
 
@@ -200,7 +209,7 @@ class ProfilePage(BaseHandler):
         try:
           access_token = datamodel.OAuthAccessToken.get_by_key_name(key_name)
           oauth_token = oauth.OAuthToken(access_token.oauth_token, access_token.oauth_token_secret)
-          client = oauth.OAuthClient(self, OAUTH_APP_SETTINGS, oauth_token)
+          client = oauth.OAuthClient(self, SETTINGS_OAUTH_TWITTER, oauth_token)
           params = {'screen_name': screen_name}
           profile = client.get('/users/show', **params)
           memcache.set(cache_id, profile, 86400)
@@ -221,23 +230,24 @@ class ProfilePage(BaseHandler):
 
     self.generate('text/html', 'profile.html', **values)
 
-def get_data(request):
+def get_data(request, topic=''):
   page = request.get('page')
   if page is '':
     page = 1
   elif not page.isnumeric():
     return False
   
-  q = request.get('q')
-  if q is '':
-    q = 'linux'
-  else:
-    # replace chars that can occur in screen names and searches
-    check = re.sub(r'[_#:\s\+\-]', '', q)
-    if not check.isalnum():
-      return False
+  if topic is '':
+    topic = request.get('q')
+    if topic is '':
+      topic = SETTINGS_TOPICS[0]
+    else:
+      # replace chars that can occur in screen names and searches
+      check = re.sub(r'[_#:\s\+\-]', '', topic)
+      if not check.isalnum():
+        return False
 
-  request_params = {'page': page, 'q': q}
+  request_params = {'page': page, 'q': topic}
   result = twitter.search_tweets(**request_params)
   return result
 
@@ -247,7 +257,8 @@ def main():
     ('/oauth/twitter/(.*)', TwitterOAuthHandler),
     ('/status/update', StatusUpdateHandler),
     ('/profile/\w+', ProfilePage),
-    ('/tweets', JsPage)],
+    ('/tweets/(.*)', MainPage),
+    ('/js/tweets', JsPage)],
     debug=True
   )
   wsgiref.handlers.CGIHandler().run(application)

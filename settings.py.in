@@ -1,6 +1,6 @@
 # edit the settings and copy this file to settings.py
 # original code from http://github.com/ryanwi/twitteroauth/tree/master
-OAUTH_APP_SETTINGS = {
+SETTINGS_OAUTH_TWITTER = {
   'consumer_key': '',
   'consumer_secret': '',
   'request_token_url': 'http://twitter.com/oauth/request_token',
@@ -10,3 +10,13 @@ OAUTH_APP_SETTINGS = {
   'default_api_suffix': '.json',
   'oauth_callback': None,
 }
+
+SETTINGS_TOPICS = [
+  'linux',
+  'debian',
+  'ubuntu',
+  'slackware',
+  'fedora',
+  'opensuse',
+  'centos'
+]
