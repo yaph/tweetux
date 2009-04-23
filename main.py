@@ -259,7 +259,7 @@ def main():
     ('/profile/\w+', ProfilePage),
     ('/tweets/(.*)', MainPage),
     ('/js/tweets', JsPage)],
-    debug=True
+    debug=False
   )
   wsgiref.handlers.CGIHandler().run(application)
 
