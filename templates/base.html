@@ -17,7 +17,8 @@
   </ul>
 </div>
 {% endif %}
-<h1><a href="/">{% block heading %}Linux Tweets | Tweetux{% endblock %}</a></h1>
+<div id="site-name">Tweetux</div>
+<h1>{% block heading %}<a href="/">Linux Tweets</a>{% endblock %}</h1>
   {% block subheading %}{% endblock %}
   
   {% if is_user_logged_in %}
