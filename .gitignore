@@ -1,4 +1,5 @@
 # Python Compiler Scripts
 *.pyc
 settings.py
+gae_utils.py
 ga.html
