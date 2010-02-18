@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# TODO see http://code.google.com/p/google-app-engine-samples/source/browse/trunk/tasks/templatefilters.py
+# for a template filter example
 import os
 import re
 import cgi
@@ -89,7 +91,7 @@ class TwitterOAuthHandler(BaseHandler):
     access_token.put()
 
     self.set_cookie('oauth', key_name)
-    self.redirect(self.request.url)
+    self.redirect('/')
     
 class StatusUpdateHandler(BaseHandler):
   def post(self):

@@ -6,7 +6,7 @@ SETTINGS_OAUTH_TWITTER = {
   'request_token_url': 'http://twitter.com/oauth/request_token',
   'access_token_url': 'http://twitter.com/oauth/access_token',
   'user_auth_url': 'http://twitter.com/oauth/authorize',
-  'default_api_prefix': 'http://twitter.com',
+  'default_api_prefix': 'http://api.twitter.com/1',
   'default_api_suffix': '.json',
   'oauth_callback': None,
 }
