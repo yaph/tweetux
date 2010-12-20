@@ -24,7 +24,6 @@ def api_request(url, cache_time, **params):
     if result.status_code == 200:
       result = simplejson.loads(result.content)
       if cache_time != 0:
-        # cache for 5 minutes
         memcache.set(cache_id, result, cache_time)
       return result
     elif result.status_code == 400:

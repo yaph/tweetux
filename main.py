@@ -12,14 +12,14 @@ from google.appengine.ext import webapp
 from google.appengine.api import urlfetch
 from google.appengine.api import memcache
 from google.appengine.ext import db
-from gae_utils import GaeBaseHandler
+import gae_utils as gae
 
 import twitter
 import lib.oauth as oauth
 import lib.datamodel as datamodel
 from settings import *
 
-class BaseHandler(GaeBaseHandler):
+class BaseHandler(gae.BaseHandler):
   def create_uuid(self):
     return 'id-%s' % uuid.uuid4().hex
 
