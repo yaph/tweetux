@@ -112,23 +112,22 @@ class StatusUpdateHandler(BaseHandler):
 
 class MainPage(BaseHandler):
   def get(self, action=''):
-    
     if action:
       topic = urllib.unquote(action)
     else:
       topic = SETTINGS_TOPICS[0]
-      
+
     key_name = self.get_cookie('oauth')
     logged_in = self.is_logged_in(key_name)
 
     tweets = get_data(self.request, topic)
-    values = {
-      'is_user_logged_in':logged_in,
-      'tweets':tweets,
-      'topics':SETTINGS_TOPICS,
-      'topic':topic
-    }
-    self.generate('text/html', 'index.html', **values)
+
+    self.set_template_value('is_user_logged_in', logged_in)
+    self.set_template_value('tweets', tweets)
+    self.set_template_value('topics', SETTINGS_TOPICS)
+    self.set_template_value('topic', topic)
+
+    self.generate('text/html', 'index.html')
 
 class JsPage(BaseHandler):
   def get(self):
@@ -136,16 +135,15 @@ class JsPage(BaseHandler):
     logged_in = self.is_logged_in(key_name)
 
     tweets = get_data(self.request)
-    values = {
-      'is_user_logged_in':logged_in,
-      'tweets':tweets
-    }
+    
+    self.set_template_value('is_user_logged_in', logged_in)
+    self.set_template_value('tweets', tweets)
     
     template_file = 'tweets.html'
     if self.request.get('q').find('from:') != -1:
       template_file = 'tweets_profile.html'
       
-    self.generate('text/javascript', template_file, **values)
+    self.generate('text/javascript', template_file)
 
 class ProfilePage(BaseHandler):
   def get(self):
@@ -175,14 +173,12 @@ class ProfilePage(BaseHandler):
     if not tweets:
       tweets = {}
 
-    values = {
-      'is_user_logged_in':logged_in,
-      'profile':profile,
-      'tweets':tweets,
-      'screen_name':screen_name
-    }
+    self.set_template_value('is_user_logged_in', logged_in)
+    self.set_template_value('tweets', tweets)
+    self.set_template_value('profile', profile)
+    self.set_template_value('screen_name', screen_name)
 
-    self.generate('text/html', 'profile.html', **values)
+    self.generate('text/html', 'profile.html')
 
 def get_data(request, topic=''):
   page = request.get('page')
