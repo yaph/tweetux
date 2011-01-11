@@ -11,7 +11,6 @@
 # The fftogo application: http://github.com/bgolub/fftogo/tree/master
 # The FriendFeed python library: http://code.google.com/p/friendfeed-api/
 #
-
 """"OAuth library for making RESTful API calls using the OAuth protocol"""
 
 import cgi
@@ -37,7 +36,6 @@ except ImportError:
         import json
         decode_json = lambda s: _unicodify(json.read(s))
 
-        
 # ------------------------------------------------------------------------------
 # oauth client
 # ------------------------------------------------------------------------------
@@ -83,7 +81,6 @@ class OAuthClient(object):
         self.token = token
 
     # public methods
-
     def get(self, api_method, **extra_params):
 
         if not (api_method.startswith('http://') or api_method.startswith('https://')):
@@ -236,7 +233,7 @@ class OAuthClient(object):
             ).digest().encode('base64')[:-1]
 
         return urllib.urlencode(kwargs)
-        
+
 # ------------------------------------------------------------------------------
 # utility functions
 # ------------------------------------------------------------------------------
